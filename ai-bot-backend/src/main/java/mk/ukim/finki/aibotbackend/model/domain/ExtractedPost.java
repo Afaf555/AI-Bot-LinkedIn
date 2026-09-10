@@ -33,6 +33,7 @@ public class ExtractedPost extends BaseAuditableEntity {
     /**
      * The identifier of the post within the social network itself, when available.
      */
+    @Column(length = 2048)
     private String externalId;
 
     private String authorHandle;

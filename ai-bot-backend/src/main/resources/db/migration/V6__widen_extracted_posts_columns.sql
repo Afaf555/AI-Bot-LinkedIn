@@ -1,0 +1,4 @@
+ALTER TABLE extracted_posts
+    ALTER COLUMN content TYPE TEXT,
+    ALTER COLUMN source_url TYPE VARCHAR(2048),
+    ALTER COLUMN external_id TYPE VARCHAR(2048);

@@ -1,23 +1,45 @@
-import { Box, Typography } from '@mui/material';
+import {
+    Box, Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography
+} from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import type { BotActionLogResponse } from '../../../../api/types/session.ts';
 
 interface SessionLogViewerProps {
-  logs: BotActionLogResponse[];
+    logs: BotActionLogResponse[];
 }
 
-/**
- * TODO(student): Render the agentic-loop trace: one row per action with its
- * type, details, success indicator and timestamp — the live view of what
- * your bot is doing during a session.
- */
 const SessionLogViewer = ({ logs }: SessionLogViewerProps) => {
-  return (
-    <Box>
-      <Typography color='text.secondary'>
-        TODO(student): Render the {logs.length} bot action log(s) here.
-      </Typography>
-    </Box>
-  );
+    if (logs.length === 0) {
+        return <Box><Typography color='text.secondary'>No bot actions recorded yet.</Typography></Box>;
+    }
+
+    return (
+        <TableContainer component={Paper}>
+            <Table size='small'>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Action</TableCell>
+                        <TableCell>Details</TableCell>
+                        <TableCell align='center'>Result</TableCell>
+                        <TableCell>Occurred At</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {logs.map((log) => (
+                        <TableRow key={log.id}>
+                            <TableCell><Chip label={log.actionType} size='small'/></TableCell>
+                            <TableCell>{log.details ?? '—'}</TableCell>
+                            <TableCell align='center'>
+                                {log.successful ? <CheckCircleIcon color='success' fontSize='small'/> : <CancelIcon color='error' fontSize='small'/>}
+                            </TableCell>
+                            <TableCell>{new Date(log.occurredAt).toLocaleString()}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
 };
 
 export default SessionLogViewer;

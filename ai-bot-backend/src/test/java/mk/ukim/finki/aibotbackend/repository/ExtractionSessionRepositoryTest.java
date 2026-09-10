@@ -20,7 +20,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Import(JpaConfig.class)
 @Transactional
 @Testcontainers
-@Disabled("TODO(student): Implement the extraction session repository tests.")
+//@Disabled("TODO(student): Implement the extraction session repository tests.")
 public class ExtractionSessionRepositoryTest {
     @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16")
